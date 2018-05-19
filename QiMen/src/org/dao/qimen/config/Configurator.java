@@ -12,28 +12,28 @@ import org.w3c.dom.NodeList;
 
 public class Configurator {
 	//public static boolean ALL = false;  //全部显示隐藏
-	public boolean SJ = false;   //十二神将
-	public boolean JXGE = false;
-	public boolean SGKY = false;
-	public boolean JTXMS = false;
-	public boolean WSXQ = false;
-	public boolean XCHM = false;
-	public boolean HUO = false;	
-	public boolean MA = true;	
-	//public boolean HEAD = true;  //是否显示隐藏头部日期信息
-	//public boolean CALENDAR = true;  //是否显示时间面板
+	private boolean SJ = false;   //十二神将
+	private boolean JXGE = false;
+	private boolean SGKY = false;
+	private boolean JTXMS = false;
+	private boolean WSXQ = false;
+	private boolean XCHM = false;
+	private boolean HUO = false;	
+	private boolean MA = true;	
+	//private boolean HEAD = true;  //是否显示隐藏头部日期信息
+	//private boolean CALENDAR = true;  //是否显示时间面板
 	
-	public boolean YANG = true;    //阴盘还是阳盘，默认是阳盘
-	public boolean ZF = true;    //转盘还是飞盘，默认是转
-	public boolean RB = false;		//置闰还是拆补，默认是拆补法
-	public boolean TD = true;		//小值符随天还是地，默认随天
-	public boolean KG = true;		//永寄坤宫还是艮，默认是坤宫
-//	public boolean TIP = true;		//关闭显示提示信息，默认关闭
-	public int XMHW = 0;  //星门换位，0是复位，100是72变
+	private boolean YANG = true;    //阴盘还是阳盘，默认是阳盘
+	private static boolean ZF = true;    //转盘还是飞盘，默认是转
+	private static boolean RB = false;		//置闰还是拆补，默认是拆补法
+	private static boolean TD = true;		//小值符随天还是地，默认随天
+	private static boolean KG = true;		//永寄坤宫还是艮，默认是坤宫
+//	private boolean TIP = true;		//关闭显示提示信息，默认关闭
+	private int XMHW = 0;  //星门换位，0是复位，100是72变
 	
-//	public boolean TOOL = true;  //是否显示工具栏，默认显示
-//	public boolean INPUT = false;  //是否显示高级面板，默认显示
-	public boolean IO = true;  //显示内置还是自定义的提示信息、规则引擎、格局定制。默认为内置	
+//	private boolean TOOL = true;  //是否显示工具栏，默认显示
+//	private boolean INPUT = false;  //是否显示高级面板，默认显示
+	private boolean IO = true;  //显示内置还是自定义的提示信息、规则引擎、格局定制。默认为内置	
 
 	private String[][] GUA = new String[10][2];  //九宫意象
 	private String[][] WH = new String[10][2];   //五行意象
@@ -110,7 +110,7 @@ public class Configurator {
 	
 	private void init () {
 		
-		logger.info("Initialization");
+		logger.info("Initialization...");
 		
 		GUA[1] = new String[]{"Kan",""};
 		GUA[2] = new String[]{"Kun",""};
@@ -173,5 +173,21 @@ public class Configurator {
 		ZI[10] = new String[]{"You",""};
 		ZI[11] = new String[]{"Xu",""};
 		ZI[12] = new String[]{"Hai",""};
+	}
+
+	public static boolean zf() {
+		return ZF;
+	}
+	
+	public static boolean td() {
+		return TD;
+	}
+	
+	public static boolean rb() {
+		return RB;
+	}
+	
+	public static boolean kg() {
+		return KG;
 	}
 }
