@@ -2,7 +2,6 @@ package org.dao.qimen.model;
 
 import java.util.GregorianCalendar;
 
-import org.boc.db.qm.QiMen2;
 import org.dao.qimen.config.Configurator;
 
 public class Chart {
@@ -35,6 +34,8 @@ public class Chart {
 	private int mtpgong;			//年命天盘落宫
 	private int mdpgong; 			//年命地盘落宫
 	private int mingdz,mingtg;  //年命天干、地支
+	
+	private Header header;
 	
 	public Chart () {
 		setTime();
