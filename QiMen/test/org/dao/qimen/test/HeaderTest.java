@@ -1,7 +1,8 @@
+package org.dao.qimen.test;
+
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.dao.calendar.SolarTerms;
 import org.dao.qimen.model.Header;
 
 public class HeaderTest {
