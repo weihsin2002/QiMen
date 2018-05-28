@@ -2,48 +2,44 @@ package org.dao.qimen.model;
 
 import java.util.Date;
 
-import org.dao.calendar.SolarTerms;
-import org.dao.calendar.model.FourPillars;
-import org.dao.calendar.model.LuniSolarDate;
-import org.dao.calendar.model.QiDivision;
-import org.dao.calendar.model.QiTerm;
-import org.dao.calendar.model.SolarDate;
+import org.dao.calendar.DaoCalendar;
 import org.dao.qimen.config.Configurator;
 
 import com.google.gson.JsonObject;
 
 public class Header {
-	SolarDate solarDate;
-	LuniSolarDate luniSolarDate = new LuniSolarDate ();
-	QiTerm term;
-	QiDivision qiDivision;
-	FourPillars fourPillars;
 	
-    String zf_, zy_, zfs_,jg_, ju_;
+	private DaoCalendar daoCalendar;
+    private String zf_, zy_, zfs_,jg_, ju_;
 	
 	public Header (Date date) {
-		solarDate = new SolarDate (date);
-		luniSolarDate = luniSolarDate.SolarToLunar(solarDate);
 		
-		SolarTerms solarTerms = new SolarTerms();
-		fourPillars = new FourPillars(solarDate, luniSolarDate);
-		
-		term = solarTerms.Term(solarDate);
-		qiDivision = new QiDivision (fourPillars);
-		
+		daoCalendar = new DaoCalendar(date);
+				
 		zf_ = (Configurator.zf()) ? "ZhuangPan":"FeiPan";
 		zy_ = (Configurator.rb()) ? "ChaiBu" : "ZhiRun";
 	    zfs_ = (Configurator.zf()) ? "XiaoZhiFuTianPan":"XiaoZhiFuDiPan";
 	    jg_ = (Configurator.kg()) ? "YinKunYangGen":"YongJiKunGong";
 	}
-	
+		
+	public DaoCalendar daoCalendar() {
+		return daoCalendar;
+	}
+
 	public JsonObject toJson () {
 		JsonObject json = new JsonObject();
 		
-		json.add("YangLi", solarDate.toJson());
-		json.add("NongLi", luniSolarDate.toJson());
-		json.add("JieQi", term.toJson());
-		json.add("Yuan", qiDivision.toJson());
+		if (daoCalendar.trueSolarDate() != null) {
+			json.add("YangLi", daoCalendar.trueSolarDate().toJson());
+			json.add("NongLi", daoCalendar.trueLuniSolarDate().toJson());
+			json.add("JieQi", daoCalendar.trueQiTerm().toJson());
+			json.add("Yuan", daoCalendar. trueQiDivision().toJson());			
+		} else {
+			json.add("YangLi", daoCalendar.solarDate().toJson());
+			json.add("NongLi", daoCalendar.luniSolarDate().toJson());
+			json.add("JieQi", daoCalendar.qiTerm().toJson());
+			json.add("Yuan", daoCalendar.qiDivision().toJson());						
+		}
 		
 		return json;
 	}

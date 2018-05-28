@@ -44,6 +44,15 @@ public class Configurator {
 	private String[][] ZI = new String[13][2];   //十二地支意象
 	private String[][] JXZS = new String[10][13];	//九星值时
 	private String[][] SHENJ = new String[13][3];	//十二神将
+	
+    //戊、己、庚、辛、壬、癸、丁、丙、乙，三奇六仪对应：1、2、3、4、5、6、7、8、9；无论顺逆皆是此顺序
+    private static final String[] sjly1 = { "", "Wu", "Ji", "Geng", "Xin", "Ren", "Gui", "Ding", "Bing", "Yi"};
+    private static final int[] sjly2 = {0,0,9,8,7,1,2,3,4,5,6}; //此为天干与三奇六仪数对应
+    private static final int[] sjly3 = {0,0,2,3,4,5,6,7,8,9}; //此为三奇六仪次序数
+    private static final int[] sjly4 = {0,1,11,9,7,5,3,0,0,0,0,0}; //此为六仪所藏六甲地支,以六仪顺序数为准
+    private static final int[] sjly5 = {0,5,6,7,8,9,10,4,3,2,0}; //此为三奇六仪数与天干对应
+	
+	private static int[][] yydun = new int[25][4];
 
 	private final Logger logger = Logger.getLogger(Configurator.class);
 
@@ -173,6 +182,31 @@ public class Configurator {
 		ZI[10] = new String[]{"You",""};
 		ZI[11] = new String[]{"Xu",""};
 		ZI[12] = new String[]{"Hai",""};
+		
+	    yydun[1] = new int[] {  0, 8, 5, 2};  //立春
+	    yydun[2] = new int[] {  0, 9, 6, 3};
+	    yydun[3] = new int[] {  0, 1, 7, 4};
+	    yydun[4] = new int[] {  0, 3, 9, 6};
+	    yydun[5] = new int[] { 0, 4, 1, 7};
+	    yydun[6] = new int[] { 0, 5, 2, 8};
+	    yydun[7] = new int[] { 0, 4, 1, 7};    
+	    yydun[8] = new int[] { 0, 5, 2, 8};
+	    yydun[9] = new int[] { 0, 6, 3, 9};
+	    yydun[10] = new int[] {  0, -9, -3, -6};  //夏至
+	    yydun[15] = new int[] { 0, -9, -3, -6};   //白露
+	    yydun[11] = new int[] { 0, -8, -2, -5};   //小暑
+	    yydun[12] = new int[] { 0, -7, -1, -4};   //大暑
+	    yydun[16] = new int[] { 0, -7, -1, -4};   //秋分
+	    yydun[13] = new int[] { 0, -2, -5, -8};   //立秋
+	    yydun[14] = new int[] { 0, -1, -4, -7};   //处暑
+	    yydun[17] = new int[] { 0, -6, -9, -3};   //寒露", "霜降",
+	    yydun[19] = new int[] {  0, -6, -9, -3};  //立冬", "小雪", "大雪
+	    yydun[18] = new int[] { 0, -5, -8, -2};
+	    yydun[20] = new int[] { 0, -5, -8, -2};
+	    yydun[21] = new int[] { 0, -4, -7, -1};
+	    yydun[22] = new int[] { 0, 1, 7, 4};     //冬至
+	    yydun[23] = new int[] { 0, 2, 8, 5};     //小寒
+	    yydun[24] = new int[] { 0, 3, 9, 6};     //大寒
 	}
 
 	public static boolean zf() {
@@ -190,4 +224,28 @@ public class Configurator {
 	public static boolean kg() {
 		return KG;
 	}
+	
+	public static int [][] yydun () {
+		return yydun;
+	}
+	
+	public static String[] sjly1() {
+		return sjly1;
+	}
+
+	public static int[] sjly2() {
+		return sjly2;
+	}
+
+	public static int[] sjly3() {
+		return sjly3;
+	}
+
+	public static int[] sjly4() {
+		return sjly4;
+	}
+
+	public static int[] sjly5() {
+		return sjly5;
+	}	
 }
