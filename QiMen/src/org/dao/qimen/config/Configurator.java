@@ -6,6 +6,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.boc.db.YiJing;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -51,6 +52,13 @@ public class Configurator {
     private static final int[] sjly3 = {0,0,2,3,4,5,6,7,8,9}; //此为三奇六仪次序数
     private static final int[] sjly4 = {0,1,11,9,7,5,3,0,0,0,0,0}; //此为六仪所藏六甲地支,以六仪顺序数为准
     private static final int[] sjly5 = {0,5,6,7,8,9,10,4,3,2,0}; //此为三奇六仪数与天干对应
+    
+    //符、蛇、阴、六、白、玄、地、天，8神对应：1、2、3、4、5、6、7、8。
+    //符、蛇、阴、六、白、玄、地、天，８神的排列次序,依次环排８宫。
+    private static final String[] bs1 = { "", "符","蛇","阴","合","虎","武","地","天"};//{ "", "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"};//阳遁
+    private static final String[] bs2 = { "", "值符","腾蛇","太阴","六合","白虎","玄武","九地","九天"}; //阴遁
+    private static final int[] bs3 = {0, YiJing.TU, YiJing.HUO, YiJing.JIN,YiJing.MU,YiJing.JIN, YiJing.SHUI,YiJing.TU, YiJing.JIN}; //八神五行
+    private static final int[] bsjx = {0,1,-1,1,1,-1,-1,1,1}; //八神吉凶,1吉0平-1凶
 	
 	private static int[][] yydun = new int[25][4];
 
