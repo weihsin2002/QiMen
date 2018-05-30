@@ -57,7 +57,7 @@ public class Configurator {
     //符、蛇、阴、六、白、玄、地、天，８神的排列次序,依次环排８宫。
     private static final String[] bs1 = { "", "符","蛇","阴","合","虎","武","地","天"};//{ "", "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"};//阳遁
     private static final String[] bs2 = { "", "值符","腾蛇","太阴","六合","白虎","玄武","九地","九天"}; //阴遁
-    private static final int[] bs3 = {0, YiJing.TU, YiJing.HUO, YiJing.JIN,YiJing.MU,YiJing.JIN, YiJing.SHUI,YiJing.TU, YiJing.JIN}; //八神五行
+    //private static final int[] bs3 = {0, YiJing.TU, YiJing.HUO, YiJing.JIN,YiJing.MU,YiJing.JIN, YiJing.SHUI,YiJing.TU, YiJing.JIN}; //八神五行
     private static final int[] bsjx = {0,1,-1,1,1,-1,-1,1,1}; //八神吉凶,1吉0平-1凶
 	
 	private static int[][] yydun = new int[25][4];
