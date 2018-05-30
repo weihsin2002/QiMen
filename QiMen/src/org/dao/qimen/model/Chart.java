@@ -46,6 +46,8 @@ public class Chart {
 	
 	private int whichJu;
 	
+	private String [] bs;
+	
 	private int zhifugong;
 	
 	private Header header;
@@ -56,6 +58,7 @@ public class Chart {
 		setQiMen();
 		setJuOrder();
 		setZhifuGong();
+		setBaShen();
 	}
 	
 	private void setTime () {
@@ -83,6 +86,10 @@ public class Chart {
 	  //定阴或阳盘的局数
 	  private void setJuOrder() {
 		  this.whichJu = Configurator.yydun()[Utils.getJieQiOrder(this.jieqiname)][Utils.getDivisionOrder(this.yuan)];
+	  }
+	  
+	  private void setBaShen() {
+		  this.bs =  whichJu>0? Configurator.bs1():Configurator.bs2();
 	  }
 	
 	  private void setZhifuGong() {  //小值符随地盘不能在这改，一改天盘奇仪都变了，因为是从值符宫推出来的
