@@ -54,6 +54,11 @@ public class Configurator {
     private static final int[] sjly4 = {0,1,11,9,7,5,3,0,0,0,0,0}; //此为六仪所藏六甲地支,以六仪顺序数为准
     private static final int[] sjly5 = {0,5,6,7,8,9,10,4,3,2,0}; //此为三奇六仪数与天干对应
     
+    //九宫顺序
+    private static final int[] jgxh = {1,8,3,4,9,2,7,6};
+    //九宫八卦，后天八卦数
+    private static final int[] jgbg = {0,6,8,4,5,0,1,8,2,3};
+    
     //符、蛇、阴、六、白、玄、地、天，8神对应：1、2、3、4、5、6、7、8。
     //符、蛇、阴、六、白、玄、地、天，８神的排列次序,依次环排８宫。
     private static final String[] bs1 = { "", "Chief","Snake","Moon","Harmony","Hook","Phoenix","Earth","Heaven"};//{ "", "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"};//阳遁
@@ -264,5 +269,13 @@ public class Configurator {
 
 	public static String[] bs2() {
 		return bs2;
+	}
+
+	public static int[] jgxh() {
+		return jgxh;
+	}
+
+	public static int[] jgbg() {
+		return jgbg;
 	}
 }
