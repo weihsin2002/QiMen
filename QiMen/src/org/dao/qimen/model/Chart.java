@@ -64,7 +64,7 @@ public class Chart {
 		setOrder();
 		setZhifuGong();
 		setBaShen();
-		setgInt();
+		setGlobalInfo();
 	}
 	
 	private void setTime () {
@@ -121,7 +121,7 @@ public class Chart {
 
 	    this.zhifugong = g==0?9:g;
 	  }
-	  
+
 	  /**
 	   * 得到直符直使序数
 	   * 阳遁：直符直使序数=所用局数+时辰所在旬序数 – 1
@@ -150,19 +150,63 @@ public class Chart {
 	    return org.dao.calendar.config.Configurator.xunshu()[(this.sz-this.sg+120)%12];
 	  }
 	  
-	  private void setgInt() {
+	  private void setGlobalInfo() {
 		  this.gInt = new int[5][10][16];
 		  
-		    gInt[0][0] = new int[]{0, this.ng, this.nz, this.yg, this.yz, this.rg, this.rz, this.sg, this.sz, whichJie, whichYuan, whichJu, getZhiFuShi(this.sg, this.sz), getZhifuGong(this.sg, this.sz), getZhishiGong(this.sg, this.sz),1};
+		    gInt[0][0] = new int[]{0, this.ng, this.nz, this.yg, this.yz, this.rg, this.rz, this.sg, this.sz, whichJie, whichYuan, whichJu, getZhiFuShi(), getZhifuGong(), getZhishiGong(),1};
 
 		    for(int i=1; i<=9; i++) { //随天盘值符  
 		    	gInt[1][1][i] = getGongShenOfZhuan(i);
 		    }
+		    
+		    for(int i=1; i<=9; i++) { // Five Elements
+	    		gInt[1][2][i] = Configurator.bs3()[gInt[1][1][i]];
+		    }
+
+		    /**
+		     * 天盘
+		     */
+		    for(int i=1; i<=9; i++) {
+		      gInt[2][1][i] = getGongXingOfZhuan(i);
+		    }
 
 	  }
 	  
+	  /**
+	   * 得到指定宫的星序数
+	   * 九星不分阴阳遁局，永远顺时针依次环排八宫
+	   * 这里改中五宫寄宫没有任何影响，因为从来不会直接取第5宫对应的星
+	   */
+	  public int getGongXingOfZhuan(int gong) {
+	    int zfsxs = getZhiFuShi(); //值符为某星的序号
+	    int zflg = getZhifuGong(); //值符落宫数
+	    if(zflg == 5)  //落中5宫寄坤2宫
+	      zflg = 2;  //2原值为2
+	    if(zfsxs == 5) //为5则为2，需寄坤二宫，否则，5中宫后下一星上一星是?
+	      zfsxs = 2;  //2原值为2
+	    int i=1;
+	    int j=0;
+	    int k=0;
+
+	    for(; i<Configurator.jx2().length; i++) {
+	      if(zfsxs == Configurator.jx2()[i])  break;
+	    }
+	    for(; j<Configurator.jgxh().length; j++) {
+	      if(zflg==Configurator.jgxh()[j])  break;
+	    }
+	    for(; k<Configurator.jgxh().length; k++) {
+	      if(gong==Configurator.jgxh()[k])  break;
+	    }
+	    if(gong==5)
+	      return 0;
+
+	    int x = (i + k - j + 8)%8==0?8:(i + k - j + 8)%8;
+	    //x = x == 5? 2:x;
+	    return Configurator.jx2()[x];  ////返回什不会出现5，因为只在8星中搜索的
+	  }
+	  
 	  public int getGongShenOfZhuan(int gong) {
-		    int zflg = getZhifuGong(this.sg,this.sz); //值符落宫数
+		    int zflg = getZhifuGong(); //值符落宫数
 		    
 		    //(二)中五宫寄何宫，阳遁寄igJigong指定的宫，阴遁永寄2宫，这是第二处改动
 		    if(zflg == 5) {
@@ -187,35 +231,19 @@ public class Chart {
 		      return (1 - k + j + 8)%8==0?8:(1 - k + j + 8)%8;
 		  }
 	  
-	  /**
-	   * 得到直符直使序数
-	   * 阳遁：直符直使序数=所用局数+时辰所在旬序数 – 1
-	   * 阴遁：直符直使序数=１＋所用局数－时辰所在旬序数
-	   */
-	  public int getZhiFuShi(int sg, int sz) {
-	    int xs = getXunShu();
-	    int zfs = 0;
-	    if(this.whichJu>0) {
-	      zfs = (whichJu+xs-1+90)%9;
-	    }else{
-	      zfs = ((0-whichJu)-xs+1+90)%9;
-	    }
-	    return zfs==0?9:zfs;
-	  }
-	  
-	  public int getZhifuGong(int sg, int sz) {  //小值符随地盘不能在这改，一改天盘奇仪都变了，因为是从值符宫推出来的
+	  public int getZhifuGong() {  //小值符随地盘不能在这改，一改天盘奇仪都变了，因为是从值符宫推出来的
 	  	
 	  	//为随天盘值符
 	    if(sg == 1) {
-	      int g2 = getZhiFuShi(sg, sz);
+	      int g2 = getZhiFuShi();
 	      return g2;
 	    }
 
 	    int g = 0;
 	    if(this.whichJu>0) {
-	      g = (whichJu-1+Configurator.sjly2()[sg]+90)%9 ;
+	      g = (whichJu-1+Configurator.sjly2()[this.sg]+90)%9 ;
 	    }else{
-	      g = ((0-whichJu)+1-Configurator.sjly2()[sg]+90)%9;
+	      g = ((0-whichJu)+1-Configurator.sjly2()[this.sg]+90)%9;
 	    }
 
 //	    /**
@@ -232,8 +260,8 @@ public class Chart {
 	   * 阴遁时的求法：时干甲１0、乙９、丙８，直使落宫＝直使序数＋时干在十天干中序数－１
 	   * 以上不分阴阳遁，如果直使落中５宫皆寄坤２宫。
 	   */
-		public int getZhishiGong(int sg, int sz) {
-	    int zfsxs = getZhiFuShi(sg,sz);
+		public int getZhishiGong() {
+	    int zfsxs = getZhiFuShi();
 	    int g = 0;
 	    if(this.whichJu>0) {
 	      g =  (zfsxs + sg -1 +90)%9;

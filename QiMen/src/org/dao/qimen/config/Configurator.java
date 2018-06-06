@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.log4j.Logger;
 import org.dao.core.FiveElements;
 import org.dao.core.HeavenlyStems;
+import org.dao.qimen.model.Stars;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -63,9 +64,17 @@ public class Configurator {
     //符、蛇、阴、六、白、玄、地、天，８神的排列次序,依次环排８宫。
     private static final String[] bs1 = { "", "Chief","Snake","Moon","Harmony","Hook","Phoenix","Earth","Heaven"};//{ "", "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"};//阳遁
     private static final String[] bs2 = { "", "Chief","Snake","Moon","Harmony","Tiger","Tortoise","Earth","Heaven"};; //阴遁
-    private static final int[] bs3 = {0, FiveElements.Earth.order(), FiveElements.Fire.order(), FiveElements.METAL.order(),FiveElements.WOOD.order(),FiveElements.METAL.order(), FiveElements.Water.order(),FiveElements.Earth.order(), FiveElements.METAL.order()}; //八神五行
+    private static final int[] bs3 = {0, FiveElements.EARTH.order(), FiveElements.FIRE.order(), FiveElements.METAL.order(),FiveElements.WOOD.order(),FiveElements.METAL.order(), FiveElements.WATER.order(),FiveElements.EARTH.order(), FiveElements.METAL.order()}; //八神五行
     private static final int[] bsjx = {0,1,-1,1,1,-1,-1,1,1}; //八神吉凶,1吉0平-1凶
 	
+    //蓬、芮、冲、辅、禽、心、柱、任、英，9星对应：1、2、3、4、5、6、7、8、9； 天禽心即禽芮
+    //９星的排列次序：蓬、任、冲、辅、英、芮（禽）、柱、心，依次环排８宫；
+    private static final String[] jx1 = { "", Stars.PENG.tianXing(), Stars.RUI.tianXing(), Stars.CHONG.tianXing(), Stars.FU.tianXing(), Stars.QIN.tianXing(), Stars.XIN.tianXing(), Stars.ZHU.tianXing(), Stars.REN.tianXing(), Stars.YING.tianXing()};
+    private static final int[] jx2 = {0,1,8,3,4,9,2,7,6};
+    private static final int[] jx3 = {0, Stars.PENG.fiveElements().order(),Stars.RUI.fiveElements().order(),Stars.CHONG.fiveElements().order(),Stars.FU.fiveElements().order(),Stars.QIN.fiveElements().order(),Stars.XIN.fiveElements().order(),Stars.ZHU.fiveElements().order(),Stars.REN.fiveElements().order(),Stars.YING.fiveElements().order()};
+    private static final int[] dpjx4 = {0,1,8,3,4,5,9,2,7,6}; //地盘对应九星顺序
+    private static final int[] jxjx = {0,-1,-1,0,1,1,1,-1,1,0}; //九星吉凶,1吉0平-1凶
+    
 	private static int[][] yydun = new int[25][4];
 
 	private final Logger logger = Logger.getLogger(Configurator.class);
@@ -270,6 +279,10 @@ public class Configurator {
 	public static String[] bs2() {
 		return bs2;
 	}
+	
+	public static int[] bs3() {
+		return bs3;
+	}
 
 	public static int[] jgxh() {
 		return jgxh;
@@ -278,4 +291,22 @@ public class Configurator {
 	public static int[] jgbg() {
 		return jgbg;
 	}
+
+	public static String[] jx1() {
+		return jx1;
+	}
+
+	public static int[] jx2() {
+		return jx2;
+	}
+
+	public static int[] jx3() {
+		return jx3;
+	}
+
+	public static int[] jxjx() {
+		return jxjx;
+	}
+	
+	
 }
