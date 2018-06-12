@@ -1,7 +1,5 @@
 package org.dao.qimen.model;
 
-import org.dao.core.FiveElements;
-
 public class Deities {
 	
 	static enum YangDeities {
@@ -72,11 +70,11 @@ public class Deities {
 		}
 	}
 	
-//	public Deities deities(boolean yang) {
-//		if (yang) {
-//			return YangDeities;
-//		} else {
-//			return YinDeities;
-//		}
-//	}
+	public Enum deities(boolean a) {
+		if (a) {
+			return YangDeities;
+		} else {
+			return YinDeities;
+		}
+	}
 }
