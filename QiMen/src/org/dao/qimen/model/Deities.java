@@ -1,8 +1,8 @@
 package org.dao.qimen.model;
 
 public class Deities {
-	
-	static enum YangDeities {
+		
+	public static enum YangDeities {
 		
 	    CHIEF (1, "Chief", "ZhiFu"),
 	    SNAKE (2, "Snake", "TengShe"),
@@ -11,7 +11,7 @@ public class Deities {
 	    HOOK (5, "Hook", "GouChen"),
 	    PHOENIX (6, "Phoenix", "ZhuQue"),
 	    EARTH (7, "Earth", "JiuDi"),
-	    MEAVEN (8, "Heaven", "JiuTian");
+	    HEAVEN (8, "Heaven", "JiuTian");
 	    
 		private int order;
 		private String deity;
@@ -36,7 +36,7 @@ public class Deities {
 		}
 	}
 	
-	static enum YinDeities {
+	public static enum YinDeities {
 		
 	    CHIEF (1, "Chief", "ZhiFu"),
 	    SNAKE (2, "Snake", "TengShe"),
@@ -45,7 +45,7 @@ public class Deities {
 	    TIGER (5, "Tiger", "BaiHu"),
 	    TORTOISE (6, "Tortoise", "XunWu"),
 	    EARTH (7, "Earth", "JiuDi"),
-	    MEAVEN (8, "Heaven", "JiuTian");
+	    HEAVEN (8, "Heaven", "JiuTian");
 	    
 		private int order;
 		private String deity;
@@ -68,13 +68,5 @@ public class Deities {
 		public String baShen() {
 			return baShen;
 		}
-	}
-	
-	public Enum deities(boolean a) {
-		if (a) {
-			return YangDeities;
-		} else {
-			return YinDeities;
-		}
-	}
+	}	
 }

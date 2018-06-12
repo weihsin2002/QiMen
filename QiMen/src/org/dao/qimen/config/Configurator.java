@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.log4j.Logger;
 import org.dao.core.FiveElements;
 import org.dao.core.HeavenlyStems;
+import org.dao.qimen.model.Deities;
 import org.dao.qimen.model.Stars;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -62,8 +63,8 @@ public class Configurator {
     
     //符、蛇、阴、六、白、玄、地、天，8神对应：1、2、3、4、5、6、7、8。
     //符、蛇、阴、六、白、玄、地、天，８神的排列次序,依次环排８宫。
-    private static final String[] bs1 = { "", "Chief","Snake","Moon","Harmony","Hook","Phoenix","Earth","Heaven"};//{ "", "值符", "腾蛇", "太阴", "六合", "白虎", "玄武", "九地", "九天"};//阳遁
-    private static final String[] bs2 = { "", "Chief","Snake","Moon","Harmony","Tiger","Tortoise","Earth","Heaven"};; //阴遁
+    private static final String[] bs1 = { "", Deities.YangDeities.CHIEF.baShen(),Deities.YangDeities.SNAKE.baShen(),Deities.YangDeities.MOON.baShen(),Deities.YangDeities.HARMONY.baShen(),Deities.YangDeities.HOOK.baShen(),Deities.YangDeities.PHOENIX.baShen(),Deities.YangDeities.EARTH.baShen(),Deities.YangDeities.HEAVEN.baShen()};
+    private static final String[] bs2 = { "", Deities.YinDeities.CHIEF.baShen(),Deities.YinDeities.SNAKE.baShen(),Deities.YinDeities.MOON.baShen(),Deities.YinDeities.HARMONY.baShen(),Deities.YinDeities.TIGER.baShen(),Deities.YinDeities.TORTOISE.baShen(),Deities.YinDeities.EARTH.baShen(),Deities.YinDeities.HEAVEN.baShen()};
     private static final int[] bs3 = {0, FiveElements.EARTH.order(), FiveElements.FIRE.order(), FiveElements.METAL.order(),FiveElements.WOOD.order(),FiveElements.METAL.order(), FiveElements.WATER.order(),FiveElements.EARTH.order(), FiveElements.METAL.order()}; //八神五行
     private static final int[] bsjx = {0,1,-1,1,1,-1,-1,1,1}; //八神吉凶,1吉0平-1凶
 	
