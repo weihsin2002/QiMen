@@ -76,6 +76,10 @@ public class Configurator {
     private static final int[] dpjx4 = {0,1,8,3,4,5,9,2,7,6}; //地盘对应九星顺序
     private static final int[] jxjx = {0,-1,-1,0,1,1,1,-1,1,0}; //九星吉凶,1吉0平-1凶
     
+    private final static int[] BAGONGGUAWH = {0,FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.FIRE.order(),FiveElements.WOOD.order(),FiveElements.WOOD.order(),FiveElements.WATER.order(),FiveElements.EARTH.order(),FiveElements.EARTH.order()};
+    private final static int[] TIANGANWH = {0,FiveElements.WOOD.order(),FiveElements.WOOD.order(),FiveElements.FIRE.order(),FiveElements.FIRE.order(),FiveElements.EARTH.order(),FiveElements.EARTH.order(),FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.WATER.order(),FiveElements.WATER.order()};
+    private final static int[] DIZIWH = {0,FiveElements.WATER.order(),FiveElements.EARTH.order(),FiveElements.WOOD.order(),FiveElements.WOOD.order(),FiveElements.EARTH.order(),FiveElements.FIRE.order(),FiveElements.FIRE.order(),FiveElements.EARTH.order(),FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.EARTH.order(),FiveElements.WATER.order()};
+    
 	private static int[][] yydun = new int[25][4];
 
 	private final Logger logger = Logger.getLogger(Configurator.class);
@@ -308,6 +312,16 @@ public class Configurator {
 	public static int[] jxjx() {
 		return jxjx;
 	}
-	
-	
+
+	public static int[] bagongguawh() {
+		return BAGONGGUAWH;
+	}
+
+	public static int[] tianganwh() {
+		return TIANGANWH;
+	}
+
+	public static int[] diziwh() {
+		return DIZIWH;
+	}	
 }

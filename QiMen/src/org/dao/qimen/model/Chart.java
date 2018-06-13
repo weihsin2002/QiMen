@@ -169,9 +169,46 @@ public class Chart {
 		    for(int i=1; i<=9; i++) {
 		      gInt[2][1][i] = getGongXingOfZhuan(i);
 		    }
+		    
+		    for(int i=1; i<=9; i++) {
+		        gInt[2][2][i] = Configurator.jx3()[gInt[2][1][i]];
+		    }
+		    
+		      for(int i=1; i<=9; i++) {
+		        gInt[2][3][i] = getTianpanJiyiOfZhuan(i);
+		      }
+		      for(int i=1; i<=9; i++) {
+		        gInt[2][5][i] = Configurator.sjly4()[gInt[2][3][i]];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        gInt[2][3][i] = Configurator.sjly5()[gInt[2][3][i]];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        gInt[2][4][i] = Configurator.tianganwh()[gInt[2][3][i]];
+		      }
 
 	  }
 	  
+	  /**
+	   * 转盘法天盘奇仪公式：
+	   * 阳遁：天盘奇仪对应数字＝天盘星对应数字－局数+1（如果结果小于1那么将结果加上9即为奇仪对应的数字）；
+	   * 阴遁：天盘奇仪对应数字＝局数－天盘星对应数字+1（如果结果小于1那么将结果加上9即为奇仪对应的数字）；
+	   */
+	  public int getTianpanJiyiOfZhuan(int gong) {
+	    if(gong==5)
+	      return 0;
+	    int x = getGongXingOfZhuan(gong);
+	    int g = 0;
+
+	    if(this.whichJu>0) {
+	      g =  (x - whichJu + 1 + 90)%9;
+	    }else{
+	      g =  ((0 - whichJu) - x + 1 + 90)%9;
+	    }
+
+	    return g==0?9:g;
+	  }
+	  	  
 	  /**
 	   * 得到指定宫的星序数
 	   * 九星不分阴阳遁局，永远顺时针依次环排八宫
