@@ -1,13 +1,16 @@
 package org.dao.qimen.model;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
+import org.apache.log4j.Logger;
 import org.dao.calendar.model.Division;
 import org.dao.calendar.model.JieQi;
 import org.dao.qimen.config.Configurator;
+import org.dao.qimen.test.HeaderTest;
 
 public class Chart {
+	private static final Logger logger = Logger.getLogger(Chart.class.getName());
+	
 	private int year;
 	private int month;
 	private int day;
@@ -55,9 +58,11 @@ public class Chart {
 	
 	private Header header;
 	
-	private int[][][] gInt;
+	private int[][][] gInt = new int[5][10][16];
 	
 	public Chart () {
+		Configurator c = new Configurator();
+		
 		header = new Header(new Date());
 		setTime();
 		setQiMen();
@@ -68,6 +73,7 @@ public class Chart {
 	}
 	
 	private void setTime () {
+		logger.info("Set Time");
 		this.year = header.daoCalendar().trueSolarDate() != null ? header.daoCalendar().trueSolarDate().year() : header.daoCalendar().solarDate().year();
 		this.month = header.daoCalendar().trueSolarDate() != null ? header.daoCalendar().trueSolarDate().month() : header.daoCalendar().solarDate().month();
 		this.day = header.daoCalendar().trueSolarDate() != null ? header.daoCalendar().trueSolarDate().day() : header.daoCalendar().solarDate().day();
@@ -87,6 +93,7 @@ public class Chart {
 	}
 
 	private void setQiMen () {
+		logger.info("Set QiMen");
 	  	this.iszf = Configurator.zf();  //转盘为1为true
 	  	this.istd = Configurator.td(); //小值符使，默认随天盘1为true
 	  	this.iscy = Configurator.rb(); //设拆捕
@@ -95,17 +102,19 @@ public class Chart {
 	
 	  //定阴或阳盘的局数
 	  private void setOrder() {
+		  logger.info("Set Order");
 		  this.whichJie = JieQi.fromJieQi(this.jieqiname);
 		  this.whichYuan = Division.fromYuan(this.yuan);
 		  this.whichJu = Configurator.yydun()[this.whichJie][this.whichYuan];
 	  }
 	  
 	  private void setBaShen() {
+		  logger.info("Set BaShen");
 		  this.bs =  whichJu>0? Configurator.bs1():Configurator.bs2();
 	  }
 	
 	  private void setZhifuGong() {  //小值符随地盘不能在这改，一改天盘奇仪都变了，因为是从值符宫推出来的
-		   
+		  logger.info("Set ZhifuGong");
 	  	//为随天盘值符
 	    if(sg == 1) {
 	      int g2 = getZhiFuShi();
@@ -151,42 +160,128 @@ public class Chart {
 	  }
 	  
 	  private void setGlobalInfo() {
-		  this.gInt = new int[5][10][16];
-		  
-		    gInt[0][0] = new int[]{0, this.ng, this.nz, this.yg, this.yz, this.rg, this.rz, this.sg, this.sz, whichJie, whichYuan, whichJu, getZhiFuShi(), getZhifuGong(), getZhishiGong(),1};
+		  logger.info("Set GlobalInfo");
+		    this.gInt[0][0] = new int[]{0, this.ng, this.nz, this.yg, this.yz, this.rg, this.rz, this.sg, this.sz, whichJie, whichYuan, whichJu, getZhiFuShi(), getZhifuGong(), getZhishiGong(),1};
 
 		    for(int i=1; i<=9; i++) { //随天盘值符  
-		    	gInt[1][1][i] = getGongShenOfZhuan(i);
+		    	this.gInt[1][1][i] = getGongShenOfZhuan(i);
 		    }
 		    
 		    for(int i=1; i<=9; i++) { // Five Elements
-	    		gInt[1][2][i] = Configurator.bs3()[gInt[1][1][i]];
+		    	this.gInt[1][2][i] = Configurator.bs3()[this.gInt[1][1][i]];
 		    }
 
 		    /**
 		     * 天盘
 		     */
 		    for(int i=1; i<=9; i++) {
-		      gInt[2][1][i] = getGongXingOfZhuan(i);
+		    	this.gInt[2][1][i] = getGongXingOfZhuan(i);
 		    }
 		    
 		    for(int i=1; i<=9; i++) {
-		        gInt[2][2][i] = Configurator.jx3()[gInt[2][1][i]];
+		    	this.gInt[2][2][i] = Configurator.jx3()[this.gInt[2][1][i]];
 		    }
 		    
 		      for(int i=1; i<=9; i++) {
-		        gInt[2][3][i] = getTianpanJiyiOfZhuan(i);
+		    	  this.gInt[2][3][i] = getTianpanJiyiOfZhuan(i);
 		      }
 		      for(int i=1; i<=9; i++) {
-		        gInt[2][5][i] = Configurator.sjly4()[gInt[2][3][i]];
+		    	  this.gInt[2][5][i] = Configurator.sjly4()[this.gInt[2][3][i]];
 		      }
 		      for(int i=1; i<=9; i++) {
-		        gInt[2][3][i] = Configurator.sjly5()[gInt[2][3][i]];
+		        this.gInt[2][3][i] = Configurator.sjly5()[this.gInt[2][3][i]];
 		      }
 		      for(int i=1; i<=9; i++) {
-		        gInt[2][4][i] = Configurator.tianganwh()[gInt[2][3][i]];
+		        this.gInt[2][4][i] = Configurator.tianganwh()[this.gInt[2][3][i]];
+		      }
+		      
+
+		      /**
+		       * 人盘
+		       */
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[3][1][i] = getGongMenOfZhuan(i);  
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[3][2][i] = Configurator.bm3()[this.gInt[3][1][i]];
 		      }
 
+		      /**
+		       * 地盘
+		       */
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][1][i] = Configurator.jgbg()[i];  //YiJing.JingGuaName[]
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][2][i] = Configurator.jgwh()[i];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][3][i] = Configurator.dpjx4()[i];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][4][i] = Configurator.dpbm4()[i];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][5][i] = getDipanJiyi(i);
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][7][i] = Configurator.sjly4()[this.gInt[4][5][i]];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][5][i] = Configurator.sjly5()[this.gInt[4][5][i]];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][6][i] = Configurator.tianganwh()[this.gInt[4][5][i]];
+		      }
+		      for(int i=1; i<=9; i++) {
+		        this.gInt[4][8][i] = Configurator.jgdz()[i];
+		      }
+	  }
+	  
+	  /**
+	   * 得到地盘奇仪序数
+	   * 阳遁：1+何宫-阳遁几局 大于小于9或0要加减9或置9
+	   * 阴遁：1-何宫+阴遁几局
+	   * @param i 地盘何宫
+	   */
+	  public int getDipanJiyi(int i) {
+	    int ju = Math.abs(whichJu);
+	    if(whichJu > 0) {
+	      return (10+i-ju)%9==0 ? 9 : (10+i-ju)%9;
+	    }else{
+	      return (10-i+ju)%9==0 ? 9 : (10-i+ju)%9;
+	    }
+	  }
+	  
+	  /**
+	   * 得到指定宫的门序数
+	   * 九星不分阴阳遁局，永远顺时针依次环排八宫
+	   * 这里改中五宫寄宫没有任何影响，因为从来不会直接取第5宫对应的星
+	   * simon 2011-12-23
+	   */
+	  public int getGongMenOfZhuan(int gong) {
+	    int zfsxs = getZhiFuShi(); //值使为某门的序号
+	    int zslg = getZhishiGong(); //值使落宫数
+	    if(zslg == 5)  //落中5宫寄坤2宫
+	      zslg = 2;
+	    if(zfsxs == 5) //为5则为2，需寄坤二宫，否则，5中门后下一门上一门是?
+	      zfsxs = 2;
+	    int i=1;
+	    int j=0;
+	    int k=0;
+
+	    for(; i<Configurator.bm2().length; i++) {
+	      if(zfsxs == Configurator.bm2()[i])  break;  //zfsxs=2,8--> i=6,2
+	    }
+	    for(; j<Configurator.jgxh().length; j++) {
+	      if(zslg==Configurator.jgxh()[j])  break;  //zslg=2,8--> j=5,1
+	    }
+	    for(; k<Configurator.jgxh().length; k++) {
+	      if(gong==Configurator.jgxh()[k])  break;  //gong=5, k=0
+	    }
+	    if(gong==5)
+	      return 0;
+	    return Configurator.bm2()[(i + k - j + 8)%8==0?8:(i + k - j + 8)%8];  //返回什不会出现5，因为只在8门中搜索的
 	  }
 	  
 	  /**
@@ -314,4 +409,17 @@ public class Chart {
 
 	    return g==0?9:g;
 	  }
+		
+		public String toString() {
+			String output = System.lineSeparator();
+			for (int i=0; i<5; i++) {
+				for (int j=0; j<10; j++) {
+					for (int k=0; k<16; k++) {
+						output = output + this.gInt[i][j][k] + " ";
+					}
+					output = output + System.lineSeparator();
+				}
+			}
+			return output;
+		}
 }

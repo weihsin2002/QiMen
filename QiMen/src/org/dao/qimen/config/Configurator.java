@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.dao.core.FiveElements;
 import org.dao.core.HeavenlyStems;
 import org.dao.qimen.model.Deities;
+import org.dao.qimen.model.Doors;
 import org.dao.qimen.model.Stars;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -60,6 +61,12 @@ public class Configurator {
     private static final int[] jgxh = {1,8,3,4,9,2,7,6};
     //九宫八卦，后天八卦数
     private static final int[] jgbg = {0,6,8,4,5,0,1,8,2,3};
+    //九宫藏支
+    private static final int[] jgdz = {0,1,809,4,506,0,1112,10,203,7};
+    //九宫五行
+    private static final int[] jgwh = {0, FiveElements.WATER.order(),FiveElements.EARTH.order(),FiveElements.WOOD.order(), FiveElements.WOOD.order(), FiveElements.EARTH.order(), FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.EARTH.order(),FiveElements.FIRE.order()};
+    //九宫名称
+    private static final String[] dpjg = {"","坎一","坤二","震三","巽四","中五","乾六","兑七","艮八","离九",};
     
     //符、蛇、阴、六、白、玄、地、天，8神对应：1、2、3、4、5、6、7、8。
     //符、蛇、阴、六、白、玄、地、天，８神的排列次序,依次环排８宫。
@@ -76,6 +83,14 @@ public class Configurator {
     private static final int[] dpjx4 = {0,1,8,3,4,5,9,2,7,6}; //地盘对应九星顺序
     private static final int[] jxjx = {0,-1,-1,0,1,1,1,-1,1,0}; //九星吉凶,1吉0平-1凶
     
+    //休、死、伤、杜、中、开、惊、生、景，9门对应：1、2、3、4、5、6、7、8、9； //中门寄坤二宫为死门  
+    private static final String[] bm1 = {"", Doors.REST.baMen(), Doors.DEATH.baMen(), Doors.HARM.baMen(), Doors.DELUSION.baMen(),Doors.CENTER.baMen(), Doors.OPEN.baMen(), Doors.FEAR.baMen(), Doors.LIFE.baMen(), Doors.SCENERY.baMen()};
+    private static final int[] bm2 = {0, Doors.REST.order(), Doors.DEATH.order(), Doors.HARM.order(), Doors.DELUSION.order(), Doors.OPEN.order(), Doors.FEAR.order(), Doors.LIFE.order(), Doors.SCENERY.order()}; //８门的排列次序：休、生、伤、杜、景、死、惊、开，依次环排８宫；
+    private static final int[] bm3 = {0, Doors.REST.fiveElements().order(),Doors.DEATH.fiveElements().order(),Doors.HARM.fiveElements().order(),Doors.DELUSION.fiveElements().order(),Doors.CENTER.fiveElements().order(),Doors.OPEN.fiveElements().order(),Doors.FEAR.fiveElements().order(),Doors.LIFE.fiveElements().order(),Doors.SCENERY.fiveElements().order()};
+    private static final int[] dpbm4 = {0, 1, 8, 3, 4, 5, 9, 2, 7, 6};
+    private static final int[] bmjx = {0,1,-1,-1,0,-1,1,-1,1,0}; //八门吉凶,1吉0平
+    
+    
     private final static int[] BAGONGGUAWH = {0,FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.FIRE.order(),FiveElements.WOOD.order(),FiveElements.WOOD.order(),FiveElements.WATER.order(),FiveElements.EARTH.order(),FiveElements.EARTH.order()};
     private final static int[] TIANGANWH = {0,FiveElements.WOOD.order(),FiveElements.WOOD.order(),FiveElements.FIRE.order(),FiveElements.FIRE.order(),FiveElements.EARTH.order(),FiveElements.EARTH.order(),FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.WATER.order(),FiveElements.WATER.order()};
     private final static int[] DIZIWH = {0,FiveElements.WATER.order(),FiveElements.EARTH.order(),FiveElements.WOOD.order(),FiveElements.WOOD.order(),FiveElements.EARTH.order(),FiveElements.FIRE.order(),FiveElements.FIRE.order(),FiveElements.EARTH.order(),FiveElements.METAL.order(),FiveElements.METAL.order(),FiveElements.EARTH.order(),FiveElements.WATER.order()};
@@ -85,13 +100,7 @@ public class Configurator {
 	private final Logger logger = Logger.getLogger(Configurator.class);
 
 	public Configurator () {
-		
-		logger.info("Loading Configurator...");
-
-		Configurator configuration = new Configurator();
-		
-		configuration.init();
-		configuration.loadConfiguration();
+		init();
 	}
 
 	private void loadConfiguration () {
@@ -148,6 +157,8 @@ public class Configurator {
 	private void init () {
 		
 		logger.info("Initialization...");
+		
+		loadConfiguration();
 		
 		GUA[1] = new String[]{"Kan",""};
 		GUA[2] = new String[]{"Kun",""};
@@ -323,5 +334,39 @@ public class Configurator {
 
 	public static int[] diziwh() {
 		return DIZIWH;
-	}	
+	}
+
+	public static String[] bm1() {
+		return bm1;
+	}
+
+	public static int[] bm2() {
+		return bm2;
+	}
+
+	public static int[] bm3() {
+		return bm3;
+	}
+
+	public static int[] dpbm4() {
+		return dpbm4;
+	}
+
+	public static int[] bmjx() {
+		return bmjx;
+	}
+
+	public static int[] jgdz() {
+		return jgdz;
+	}
+
+	public static int[] jgwh() {
+		return jgwh;
+	}
+
+	public static int[] dpjx4() {
+		return dpjx4;
+	}
+	
+	
 }
