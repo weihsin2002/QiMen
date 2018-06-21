@@ -340,6 +340,8 @@ public class Chart {
 	  public int getGongShenOfZhuan(int gong) {
 		    int zflg = getZhifuGong(); //值符落宫数
 		    
+		    logger.info("zflg=" + zflg);
+		    
 		    //(二)中五宫寄何宫，阳遁寄igJigong指定的宫，阴遁永寄2宫，这是第二处改动
 		    if(zflg == 5) {
 		    	//zflg = (this.whichJu>0)? (igJigong==0?2:igJigong) : 2;
@@ -354,12 +356,16 @@ public class Chart {
 		    for(; k<Configurator.jgxh().length; k++) {
 		      if(gong==Configurator.jgxh()[k])  break;
 		    }
+		    
+		    logger.info("gong=" + gong);
 
 		    if(gong==5)
 		      return 0;
-		    if(whichJu>0)
+		    if(whichJu>0) {
+		    	
+		      logger.info("result=" + ((1 + k - j + 8)%8==0?8:(1 + k - j + 8)%8));
 		      return (1 + k - j + 8)%8==0?8:(1 + k - j + 8)%8;
-		    else
+		    } else
 		      return (1 - k + j + 8)%8==0?8:(1 - k + j + 8)%8;
 		  }
 	  
