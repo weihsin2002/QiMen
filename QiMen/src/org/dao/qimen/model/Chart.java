@@ -64,6 +64,9 @@ public class Chart {
 		Configurator c = new Configurator();
 		
 		header = new Header(new Date());
+		
+		logger.info("header=" + header.toJson().toString());
+		
 		setTime();
 		setQiMen();
 		setOrder();
@@ -105,7 +108,7 @@ public class Chart {
 		  logger.info("Set Order");
 		  this.whichJie = JieQi.fromJieQi(this.jieqiname);
 		  this.whichYuan = Division.fromYuan(this.yuan);
-		  this.whichJu = Configurator.yydun()[this.whichJie][this.whichYuan];
+		  this.whichJu = this.header.structure().ju();
 	  }
 	  
 	  private void setBaShen() {
@@ -236,6 +239,10 @@ public class Chart {
 		      for(int i=1; i<=9; i++) {
 		        this.gInt[4][8][i] = Configurator.jgdz()[i];
 		      }
+	  }
+	  
+	  public void EarthPlateCalculation () {
+		  
 	  }
 	  
 	  /**
