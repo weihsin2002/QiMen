@@ -60,6 +60,8 @@ public class Chart {
 	
 	private int[][][] gInt = new int[5][10][16];
 	
+	private EarthPlate earthPlate;
+	
 	public Chart () {
 		Configurator c = new Configurator();
 		
@@ -73,6 +75,7 @@ public class Chart {
 		setZhifuGong();
 		setBaShen();
 		setGlobalInfo();
+		EarthPlateCalculation();
 	}
 	
 	private void setTime () {
@@ -242,7 +245,8 @@ public class Chart {
 	  }
 	  
 	  public void EarthPlateCalculation () {
-		  
+		  this.earthPlate = new EarthPlate(this.header.structure().ju());
+		  logger.info("Earth Plate = " + this.earthPlate.toJson());
 	  }
 	  
 	  /**
