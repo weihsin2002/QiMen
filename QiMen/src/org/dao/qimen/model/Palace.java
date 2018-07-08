@@ -20,7 +20,7 @@ public class Palace {
 		this.earthlyBranch1 = this.palaces.earthlyBranch1();
 		this.earthlyBranch2 = this.palaces.earthlyBranch2();
 		
-		this.heavenlySteams = HeavenlyStems.heavenlyStems(getHeavenlyStemOrder(ju));
+		this.heavenlySteams = getHeavenlyStem(ju);
 	}
 	
 	public int order() {
@@ -43,13 +43,40 @@ public class Palace {
 		return earthlyBranch2;
 	}
 
-	private int getHeavenlyStemOrder(int ju) {
-		ju = Math.abs(ju);
+	private HeavenlyStems getHeavenlyStem(int ju) {
+		int juNumber = Math.abs(ju);
+		int idx = 0;
+		
 		if(ju > 0) {
-			return (10+this.order-ju)%9==0 ? 9 : (10+this.order-ju)%9;
+			idx = (10+this.order-juNumber)%9==0 ? 9 : (10+this.order-juNumber)%9;
 		}else{
-			return (10-this.order+ju)%9==0 ? 9 : (10-this.order+ju)%9;
+			idx = (10-this.order+juNumber)%9==0 ? 9 : (10-this.order+juNumber)%9;
 		}
+		HeavenlyStems stem;
+		
+		switch (idx) {
+			case 1 : stem = HeavenlyStems.WU;
+					 break;
+			case 2 : stem = HeavenlyStems.JI;
+					 break;
+			case 3 : stem = HeavenlyStems.GENG;
+					 break;
+			case 4 : stem = HeavenlyStems.XIN;
+					 break;
+			case 5 : stem = HeavenlyStems.REN;
+				     break;
+			case 6 : stem = HeavenlyStems.GUI;
+					 break;
+			case 7 : stem = HeavenlyStems.DING;
+					 break;
+			case 8 : stem = HeavenlyStems.BING;
+					 break;
+			case 9 : stem = HeavenlyStems.YI;
+					 break;
+			default : stem = null;
+		}
+		
+		return stem;
 	}
 	
 	public JsonObject toJson () {
@@ -58,8 +85,8 @@ public class Palace {
 		json.addProperty("order", this.order);
 		json.addProperty("palaces", this.palaces.gong());
 		json.addProperty("heavenlyStems", this.heavenlySteams.tianGan());
-		json.addProperty("EarthlyBranch1", earthlyBranch1.diZhi());
-		json.addProperty("EarthlyBranch2", earthlyBranch2.diZhi());
+		json.addProperty("EarthlyBranch1", earthlyBranch1 == null ? null : earthlyBranch1.diZhi());
+		json.addProperty("EarthlyBranch2", earthlyBranch2 == null ? null : earthlyBranch2.diZhi());
 		
 		return json;
 	}

@@ -14,15 +14,15 @@ public class EarthPlate {
 	private Palace ZhongPalace;
 	
 	EarthPlate (int ju) {
-		KanPalace = new Palace(1, ju);
-		GenPalace = new Palace(8, ju);
-		ZhenPalace = new Palace(3, ju);
-		XunPalace = new Palace(4, ju);
-		LiPalace = new Palace(9, ju);
-		KunPalace = new Palace(2, ju);
-		DuiPalace = new Palace (7, ju);
-		QianPalace = new Palace (6, ju);
-		ZhongPalace = new Palace(5, ju);
+		this.KanPalace = new Palace(1, ju);
+		this.GenPalace = new Palace(8, ju);
+		this.ZhenPalace = new Palace(3, ju);
+		this.XunPalace = new Palace(4, ju);
+		this.LiPalace = new Palace(9, ju);
+		this.KunPalace = new Palace(2, ju);
+		this.DuiPalace = new Palace (7, ju);
+		this.QianPalace = new Palace (6, ju);
+		this.ZhongPalace = new Palace(5, ju);
 	}
 
 	public Palace kanPalace() {
